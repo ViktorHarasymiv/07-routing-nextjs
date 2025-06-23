@@ -11,14 +11,16 @@ interface NotesHttpResponse {
 }
 
 type Props = {
-  params: { slug: string[] };
+  params: Promise<{ slug: string[] }>;
 };
 
 const Notes = async ({ params }: Props) => {
-  const { slug } = params;
+  const { slug } = await params;
   const category = slug[0] === "all" ? "" : slug[0];
 
   const response: NotesHttpResponse = await fetchNotes(1, "", category);
+
+  console.log(response);
 
   return (
     <section className={css.app}>

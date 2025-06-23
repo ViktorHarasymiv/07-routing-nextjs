@@ -35,7 +35,7 @@ const NotesClient = ({ initialValue, tag }: Props) => {
   const [debouncedQuery] = useDebounce(query, 400);
 
   const { data } = useQuery<NotesHttpResponse>({
-    queryKey: ["notes", debouncedQuery, tag, page],
+    queryKey: ["notes", page, debouncedQuery, tag],
     queryFn: () => fetchNotes(page, debouncedQuery, tag),
     placeholderData: keepPreviousData,
     initialData: initialValue,
