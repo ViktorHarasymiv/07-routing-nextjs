@@ -11,7 +11,7 @@ import css from "./NotesPage.module.css";
 
 import { fetchNotes } from "../../../../lib/api";
 import Pagination from "../../../../components/Pagination/Pagination";
-import NoteModal from "../../../../components/NoteModal/NoteModal";
+import NoteModal from "../../../../components/Modal/Modal";
 
 type NotesHttpResponse = {
   notes: Note[];

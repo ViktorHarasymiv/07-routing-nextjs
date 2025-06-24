@@ -16,7 +16,7 @@ type Props = {
 
 const Notes = async ({ params }: Props) => {
   const { slug } = await params;
-  const category = slug[0] === "all" ? "" : slug[0];
+  const category = slug[0] === "All" ? "" : slug[0];
 
   const response: NotesHttpResponse = await fetchNotes(1, "", category);
 
