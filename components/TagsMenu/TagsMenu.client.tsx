@@ -6,16 +6,13 @@ import Link from "next/link";
 
 import css from "./TagsMenu.module.css";
 
-export const TagsMenuClient = () => {
+interface Props {
+  tags: string[];
+}
+
+export const TagsMenuClient = ({ tags }: Props) => {
   const [openMenu, setOpenMenu] = useState(false);
-  const tagsList: string[] = [
-    "All",
-    "Work",
-    "Personal",
-    "Meeting",
-    "Shopping",
-    "Todo",
-  ];
+
   return (
     <>
       <button
@@ -35,7 +32,7 @@ export const TagsMenuClient = () => {
       </button>
       {openMenu && (
         <ul className={css.menuList}>
-          {tagsList.map((tag, index) => {
+          {tags.map((tag, index) => {
             return (
               <li key={index} className={css.menuItem}>
                 <Link

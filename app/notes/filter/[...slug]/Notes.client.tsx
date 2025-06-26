@@ -11,6 +11,8 @@ import css from "./NotesPage.module.css";
 
 import { fetchNotes } from "../../../../lib/api";
 import Pagination from "../../../../components/Pagination/Pagination";
+
+import Modal from "../../../../components/Modal/Modal";
 import NoteModal from "../../../../components/NoteForm/NoteForm";
 
 type NotesHttpResponse = {
@@ -62,9 +64,17 @@ const NotesClient = ({ initialValue, tag }: Props) => {
         <button className={css.button} onClick={openModal}>
           Create note +
         </button>
-        {isModalOpen && <NoteModal onClose={closeModal} />}
+        {isModalOpen && (
+          <Modal onClose={closeModal}>
+            <NoteModal />
+          </Modal>
+        )}
       </div>
-      {data && <NoteList notes={data?.notes} />}
+      {data.notes.length >= 1 ? (
+        <NoteList notes={data?.notes} />
+      ) : (
+        <p className="error">Oops... We don`t have any entries for you.</p>
+      )}
     </>
   );
 };
