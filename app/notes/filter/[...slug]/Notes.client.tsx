@@ -13,7 +13,7 @@ import { fetchNotes } from "../../../../lib/api";
 import Pagination from "../../../../components/Pagination/Pagination";
 
 import Modal from "../../../../components/Modal/Modal";
-import NoteModal from "../../../../components/NoteForm/NoteForm";
+import NoteForm from "../../../../components/NoteForm/NoteForm";
 
 type NotesHttpResponse = {
   notes: Note[];
@@ -37,8 +37,8 @@ const NotesClient = ({ initialValue, tag }: Props) => {
   const [debouncedQuery] = useDebounce(query, 400);
 
   const { data } = useQuery<NotesHttpResponse>({
-    queryKey: ["notes", page, debouncedQuery, tag],
-    queryFn: () => fetchNotes(page, debouncedQuery, tag),
+    queryKey: ["notes", debouncedQuery, page, tag],
+    queryFn: () => fetchNotes(debouncedQuery, page, tag),
     placeholderData: keepPreviousData,
     initialData: initialValue,
   });
@@ -52,9 +52,9 @@ const NotesClient = ({ initialValue, tag }: Props) => {
     <>
       <div className={css.toolbar}>
         <SearchBox query={query} updateQuery={updateQuery} />
-        {data?.totalPages && data?.totalPages > 1 ? (
+        {data.totalPages && data.totalPages > 1 ? (
           <Pagination
-            totalPages={data?.totalPages}
+            totalPages={data.totalPages}
             page={page}
             onPageChange={setPage}
           />
@@ -66,12 +66,12 @@ const NotesClient = ({ initialValue, tag }: Props) => {
         </button>
         {isModalOpen && (
           <Modal onClose={closeModal}>
-            <NoteModal />
+            <NoteForm />
           </Modal>
         )}
       </div>
       {data.notes.length >= 1 ? (
-        <NoteList notes={data?.notes} />
+        <NoteList notes={data.notes} />
       ) : (
         <p className="error">Oops... We don`t have any entries for you.</p>
       )}

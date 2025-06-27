@@ -18,8 +18,8 @@ axios.defaults.baseURL = "https://notehub-public.goit.study/api";
 // GET FETCH
 
 export const fetchNotes = async (
+  query: string,
   page: number,
-  query?: string,
   tag?: string
 ): Promise<NotesHttpResponse> => {
   const PARAMS = new URLSearchParams({

@@ -18,9 +18,7 @@ const Notes = async ({ params }: Props) => {
   const { slug } = await params;
   const category = slug[0] === "All" ? "" : slug[0];
 
-  const response: NotesHttpResponse = await fetchNotes(1, "", category);
-
-  console.log(response);
+  const response: NotesHttpResponse = await fetchNotes("", 1, category);
 
   return (
     <section className={css.app}>

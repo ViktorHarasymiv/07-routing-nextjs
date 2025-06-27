@@ -1,26 +1,30 @@
-"use client";
-import React from "react";
-
-import { useQuery } from "@tanstack/react-query";
-import { useParams } from "next/navigation";
-import { fetchNoteById } from "../../../../lib/api";
-
+import {
+  QueryClient,
+  HydrationBoundary,
+  dehydrate,
+} from "@tanstack/react-query";
 import NotePreview from "./NotePreview.client";
 
-const NotesPage = () => {
-  const { id } = useParams<{ id: string }>();
-  const noteId = Number(id);
+import { fetchNoteById } from "../../../../lib/api";
 
-  const {
-    data: note,
-    isLoading,
-    error,
-  } = useQuery({
-    queryKey: ["note", noteId],
-    queryFn: () => fetchNoteById(noteId),
-    refetchOnMount: false,
+type Props = {
+  params: Promise<{ id: string }>;
+};
+
+const NotesPage = async ({ params }: Props) => {
+  const { id } = await params;
+
+  const queryClient = new QueryClient();
+
+  await queryClient.prefetchQuery({
+    queryKey: ["note", Number(id)],
+    queryFn: () => fetchNoteById(Number(id)),
   });
-  return <NotePreview noteData={note} isLoading={isLoading} error={error} />;
+
+  return;
+  <HydrationBoundary state={dehydrate(queryClient)}>
+    <NotePreview />;
+  </HydrationBoundary>;
 };
 
 export default NotesPage;
