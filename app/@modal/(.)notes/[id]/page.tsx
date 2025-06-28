@@ -21,10 +21,11 @@ const NotesPage = async ({ params }: Props) => {
     queryFn: () => fetchNoteById(Number(id)),
   });
 
-  return;
-  <HydrationBoundary state={dehydrate(queryClient)}>
-    <NotePreview />;
-  </HydrationBoundary>;
+  return (
+    <HydrationBoundary state={dehydrate(queryClient)}>
+      <NotePreview />
+    </HydrationBoundary>
+  );
 };
 
 export default NotesPage;

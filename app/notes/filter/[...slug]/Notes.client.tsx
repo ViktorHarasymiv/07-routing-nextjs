@@ -66,7 +66,7 @@ const NotesClient = ({ initialValue, tag }: Props) => {
         </button>
         {isModalOpen && (
           <Modal onClose={closeModal}>
-            <NoteForm />
+            <NoteForm onClose={closeModal} />
           </Modal>
         )}
       </div>

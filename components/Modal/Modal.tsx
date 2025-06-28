@@ -37,12 +37,7 @@ export default function NoteModal({ children, onClose }: Props) {
       role="dialog"
       aria-modal="true"
     >
-      <div className={css.modal}>
-        {children}
-        <button className={css.backBtn} onClick={onClose}>
-          Close
-        </button>
-      </div>
+      <div className={css.modal}>{children}</div>
     </div>,
     document.body
   );

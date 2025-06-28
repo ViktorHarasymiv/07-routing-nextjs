@@ -38,7 +38,11 @@ const noteShema = Yup.object().shape({
     .required("Tag is required"),
 });
 
-export default function NoteForm() {
+interface Props {
+  onClose: () => void;
+}
+
+export default function NoteForm({ onClose }: Props) {
   const queryClient = useQueryClient();
 
   const mutation = useMutation({
@@ -56,6 +60,7 @@ export default function NoteForm() {
       },
     });
   };
+
   return (
     <Formik
       onSubmit={handleSubmit}
@@ -94,6 +99,9 @@ export default function NoteForm() {
         </div>
 
         <div className={css.actions}>
+          <button onClick={onClose} className={css.cancelButton}>
+            Close
+          </button>
           <button type="submit" className={css.submitButton}>
             Create note
           </button>
